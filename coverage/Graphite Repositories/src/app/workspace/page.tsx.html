@@ -1,0 +1,88 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for Graphite Repositories/src/app/workspace/page.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">Graphite Repositories/src/app/workspace</a> page.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >"use client";import {useEffect,useState} from "react";import {useRouter} from "next/navigation";import {Sidebar} from "@/components/Sidebar";type Task={id:string;title:string;description:string;status:"backlog"|"todo"|"doing"|"done";priority:"low"|"medium"|"high"};const columns:Task["status"][]=["backlog","todo","doing","done"];export default function Workspace(){const r=useRouter();const [tasks,setTasks]=useState&lt;Task[]&gt;([]),[title,setTitle]=useState(""),[filter,setFilter]=useState(""),[error,setError]=useState("");const load=()=&gt;fetch("/api/workspace/tasks").then(async x=&gt;{const d=await x.json();if(!x.ok)throw Error(d.error||"Unable to load tasks");return d}).then(x=&gt;{setTasks(x.tasks||[]);setError("")}).catch(e=&gt;setError(e instanceof Error?e.message:"Unable to load tasks"));useEffect(()=&gt;{load()},[]);async function add(){if(!title.trim())return;await fetch("/api/workspace/tasks",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({title,status:"todo",priority:"medium"})});setTitle("");load()}async function move(t:Task,status:Task["status"]){await fetch("/api/workspace/tasks",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:t.id,status})});load()}async function remove(id:string){await fetch(`/api/workspace/tasks?id=${id}`,{method:"DELETE"});load()}return &lt;div className="min-h-screen bg-[#0c0d0e] text-[#ededed] p-6 lg:pl-72"&gt;&lt;Sidebar currentTab="dashboard" onSelectTab={t=&gt;r.push(t==="dashboard"?"/":`/${t}`)} isOpenMobile={false} onCloseMobile={()=&gt;{}}/&gt;&lt;main className="max-w-6xl"&gt;&lt;h1 className="text-lg font-semibold mb-4"&gt;Workspace&lt;/h1&gt;{error&amp;&amp;&lt;p className="text-xs text-red-400 mb-3"&gt;{error}&lt;/p&gt;}&lt;div className="flex gap-2 mb-5"&gt;&lt;input aria-label="Task title" value={title} onChange={e=&gt;setTitle(e.target.value)} onKeyDown={e=&gt;e.key==="Enter"&amp;&amp;add()} placeholder="New task" className="field"/&gt;&lt;button onClick={add} className="bg-[#4285F4] rounded px-3 text-sm"&gt;Create&lt;/button&gt;&lt;input aria-label="Filter tasks" value={filter} onChange={e=&gt;setFilter(e.target.value)} placeholder="Filter" className="field ml-auto"/&gt;&lt;/div&gt;&lt;div className="grid md:grid-cols-4 gap-3"&gt;{columns.map(c=&gt;&lt;section key={c} className="panel"&gt;&lt;h2 className="text-sm font-semibold capitalize mb-3"&gt;{c}&lt;/h2&gt;{tasks.filter(t=&gt;t.status===c&amp;&amp;t.title.toLowerCase().includes(filter.toLowerCase())).map(t=&gt;&lt;article key={t.id} className="border border-[#30343d] rounded p-3 mb-2 text-sm"&gt;&lt;div&gt;{t.title}&lt;/div&gt;&lt;div className="text-xs text-[#71717a] mt-1"&gt;{t.priority}&lt;/div&gt;&lt;div className="flex gap-2 mt-2"&gt;&lt;select aria-label={`Move ${t.title}`} value={t.status} onChange={e=&gt;move(t,e.target.value as Task["status"])} className="bg-[#17191e] text-xs"&gt;&lt;option value="backlog"&gt;Backlog&lt;/option&gt;&lt;option value="todo"&gt;Todo&lt;/option&gt;&lt;option value="doing"&gt;Doing&lt;/option&gt;&lt;option value="done"&gt;Done&lt;/option&gt;&lt;/select&gt;&lt;button onClick={()=&gt;remove(t.id)} className="text-xs text-red-400"&gt;Delete&lt;/button&gt;&lt;/div&gt;&lt;/article&gt;)}{!tasks.some(t=&gt;t.status===c)&amp;&amp;&lt;p className="text-xs text-[#71717a]"&gt;No tasks&lt;/p&gt;}&lt;/section&gt;)}&lt;/div&gt;&lt;/main&gt;&lt;/div&gt;}</span></span></span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-11-07T19:27:32.137Z
+            </div>
+        <script src="../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
+    </body>
+</html>
+    

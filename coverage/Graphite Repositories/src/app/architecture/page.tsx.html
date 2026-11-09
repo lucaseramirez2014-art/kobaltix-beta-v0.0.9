@@ -1,0 +1,91 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for Graphite Repositories/src/app/architecture/page.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">Graphite Repositories/src/app/architecture</a> page.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/2</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >/* eslint-disable @typescript-eslint/no-explicit-any */</span></span></span>
+<span class="cstat-no" title="statement not covered" >"use client";import {useState} from "react";import {useRouter} from "next/navigation";import {Sidebar} from "@/components/Sidebar";export default function Architecture(){const r=useRouter();const[owner,setOwner]=useState(""),[name,setName]=useState(""),[ref,setRef]=useState("main"),[data,setData]=useState&lt;any&gt;(),[q,setQ]=useState(""),[busy,setBusy]=useState(false),[error,setError]=useState("");async function run(e:React.FormEvent){e.preventDefault();setBusy(true);setError("");try{const x=await fetch("/api/architecture/analyze",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({owner,name,ref})}),d=await x.json();if(!x.ok)throw Error(d.error);setData(d)}catch(e){setError(e instanceof Error?e.message:"Request failed")}finally{setBusy(false)}}const modules=data?.overview?.modules?.filter((m:any)=&gt;m.path.toLowerCase().includes(q.toLowerCase()))||[];return &lt;div className="min-h-screen bg-[#0c0d0e] text-[#ededed] p-6 lg:pl-72"&gt;&lt;Sidebar currentTab="intelligence" onSelectTab={t=&gt;r.push(t==="dashboard"?"/":`/${t}`)} isOpenMobile={false} onCloseMobile={()=&gt;{}}/&gt;&lt;main className="max-w-6xl"&gt;&lt;h1 className="text-xl font-semibold"&gt;Architecture Intelligence&lt;/h1&gt;&lt;p className="text-sm text-[#71717a] mt-2"&gt;Indexed structure, dependencies, drift signals, and enforceable rules. Source is never executed.&lt;/p&gt;&lt;form onSubmit={run} className="mt-6 flex flex-wrap gap-2"&gt;&lt;input value={owner} onChange={e=&gt;setOwner(e.target.value)} placeholder="owner" className="field"/&gt;&lt;input value={name} onChange={e=&gt;setName(e.target.value)} placeholder="repository" className="field"/&gt;&lt;input value={ref} onChange={e=&gt;setRef(e.target.value)} placeholder="ref" className="field"/&gt;&lt;button className="bg-[#4285F4] rounded px-4 py-2 text-sm"&gt;{busy?"Indexing…":"Analyze architecture"}&lt;/button&gt;&lt;/form&gt;{error&amp;&amp;&lt;p className="text-red-400 mt-3"&gt;{error}&lt;/p&gt;}{data&amp;&amp;&lt;div className="mt-6 space-y-4"&gt;&lt;div className="grid grid-cols-2 md:grid-cols-5 gap-2"&gt;{[["Modules",modules.length],["Directories",data.overview.directories.length],["Entrypoints",data.overview.entrypoints.length],["Unresolved",data.overview.unresolvedImports.length],["Cycles",data.overview.cycles.length]].map(x=&gt;&lt;div className="panel" key={x[0] as string}&gt;&lt;b&gt;{x[1] as number}&lt;/b&gt;&lt;span&gt;{x[0] as string}&lt;/span&gt;&lt;/div&gt;)}&lt;/div&gt;&lt;div className="panel"&gt;&lt;div className="flex justify-between mb-3"&gt;&lt;h2&gt;Module relationships&lt;/h2&gt;&lt;input value={q} onChange={e=&gt;setQ(e.target.value)} placeholder="Search modules" className="field"/&gt;&lt;/div&gt;&lt;div className="grid md:grid-cols-2 gap-2"&gt;{modules.map((m:any)=&gt;&lt;div key={m.path} className="border border-[#252830] rounded p-3 text-sm"&gt;&lt;b&gt;{m.path}&lt;/b&gt;&lt;p className="text-xs text-[#71717a]"&gt;{m.symbols.length} symbols · {m.imports.length} imports · {m.contentState}&lt;/p&gt;&lt;p className="text-xs text-[#a1a1aa] mt-1"&gt;{m.imports.map((i:any)=&gt;i.resolvedPath||i.source).join(" · ")||"No imports"}&lt;/p&gt;&lt;/div&gt;)}&lt;/div&gt;&lt;/div&gt;&lt;div className="panel"&gt;&lt;h2&gt;Structural findings&lt;/h2&gt;{data.overview.findings.map((f:any)=&gt;&lt;p className="text-sm mt-2" key={f.id}&gt;&lt;b&gt;{f.title}&lt;/b&gt; — {f.detail}&lt;/p&gt;)}&lt;/div&gt;&lt;/div&gt;}&lt;/main&gt;&lt;/div&gt;}</span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-11-07T19:27:32.137Z
+            </div>
+        <script src="../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
+    </body>
+</html>
+    
